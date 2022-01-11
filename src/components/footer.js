@@ -1,5 +1,5 @@
 const Footer = {
-  print() {
+  render() {
     return "<span>Lê Quang Vinh</span>";
   },
 };

@@ -1,57 +1,62 @@
 import Navigo from "navigo";
 import AboutPage from "./pages/about";
+import DetailPage from "./components/details";
 import HomePage from "./pages/home";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import AdminNewList from "./components/admin/new-list";
+import AdminDashboard from "./pages/admin/dashboard";
+import Navbar from "./components/admin/navbar";
+import SignInPage from "./components/signin";
+import SignUpPage from "./components/sinup";
+import NewAdd from "./components/admin/new-add";
+import NewEdit from "./components/admin/new-edit";
 
 const router = new Navigo("/", { linksSelector: "a" });
-const render = (content) => {
-  document.getElementById("app").innerHTML = content.print();
+
+const print = (content) => {
+  document.querySelector("#header").innerHTML = Header.render();
+  document.querySelector("#app").innerHTML = content;
+  document.querySelector("#footer").innerHTML = Footer.render();
+};
+const printAdmin = (content) => {
+  document.getElementById("container").classList.remove("max-w-5xl");
+  document.querySelector("#header").innerHTML = Navbar.render();
+  document.querySelector("#app").innerHTML = content;
+  document.querySelector("#footer").innerHTML = Footer.render();
 };
 router.on({
-  "/": () => render(HomePage),
-  "/home": () => render(HomePage),
-  "/tuyensinh": () => render(AboutPage),
-  "/daotao": () => render(AboutPage),
+  "/": () => {
+    print(HomePage.render());
+  },
+  "/signin": () => {
+    print(SignInPage.render());
+  },
+  "/signup": () => {
+    print(SignUpPage.render());
+  },
+  "/about": () => {
+    print(AboutPage.render());
+  },
+  "/new": () => {
+    print(AboutPage.render());
+  },
+  "/new/:id": ({ data }) => {
+    const { id } = data;
+    print(DetailPage.render(id));
+  },
+  "/admin/dashboard": () => {
+    printAdmin(AdminDashboard.render());
+  },
+  "/admin/news": () => {
+    printAdmin(AdminNewList.render());
+  },
+  "/admin/news/add": () => {
+    printAdmin(NewAdd.render());
+  },
+  "/admin/news/:id/edit": ({ data }) => {
+    const { id } = data;
+    printAdmin(NewEdit.render(id));
+  },
 });
-router.notFound(() => render("<h1>not found 404</h1>"));
 router.resolve();
-
-// const showMenu = () => {
-//   const menuElement = document.getElementById("menu");
-//   if (menuElement) {
-//     const result = menus.map((menu) => `
-//         <li class="text-white px-4 hover:bg-blue-500 py-2 "><a href="">${menu}</a></li>
-//         `);
-//     menuElement.innerHTML += result.join("");
-//   }
-// };
-// showMenu();
-
-// const showNew = () => {
-//   const newElement = document.querySelector("#new");
-//   if (newElement) {
-//     const result2 = news.map((new1) => `
-//         <div class="new-item border p-4">
-//             <a href=""><img class="w-full h-80" src="${new1.image}" alt=""></a>
-//             <h1 class="text-orange-600 font-bold text-justify py-3">${new1.title}</h1>
-//             <span class="flex text-justify">${new1.content}</span>
-//           </div>
-//         `);
-//     newElement.innerHTML += result2.join("");
-//   }
-// };
-// showNew();
-
-// const showAction = () => {
-//   const actionElement = document.querySelector("#actions");
-//   if (actionElement) {
-//     const result3 = actions.map((action) => `
-//           <div class="new-item border p-4">
-//               <a href=""><img class="w-full h-80" src="${action.image}" alt=""></a>
-//               <h1 class="text-orange-600 font-bold text-justify py-3">${action.title}</h1>
-//               <span class="flex text-justify">${action.content}</span>
-//             </div>
-//           `);
-//     actionElement.innerHTML += result3.join("");
-//   }
-// };
-// showAction();

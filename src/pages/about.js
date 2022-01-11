@@ -1,5 +1,5 @@
 const AboutPage = {
-  print() {
+  render() {
     return "DDaay la about page neneen";
   },
 };

@@ -1,7 +1,7 @@
 import { actions } from "../data";
 
 const Actions = {
-  print() {
+  render() {
     return `
       <h1 class="text-blue-900 font-bold text-3xl my-3">Hoạt động sinh viên</h1>
       <div class="actions grid grid-cols-3 gap-6" id="actions">

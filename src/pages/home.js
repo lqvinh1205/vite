@@ -1,33 +1,21 @@
 import Actions from "../components/actions";
-import Footer from "../components/footer";
-import Header from "../components/header";
+import Banner from "../components/banner";
 import NewsList from "../components/news-list";
 
 const HomePage = {
-  print() {
+  render() {
     return /* html */ `
-      <div class="container max-w-5xl mx-auto">
-        <header>
-            ${Header.print()}
-        </header>
         <main>
             <section class="banner mt-2">
-            <a href="">
-                <img src="https://ap.poly.edu.vn/images/Banner-AP.png" alt="">
-            </a>
+                ${Banner.render()}
             </section>
             <section id="news">
-                ${NewsList.print()}
+                ${NewsList.render()}
             </section>
             <section id="action">
-                ${Actions.print()}
+                ${Actions.render()}
             </section>
         </main>
-        <footer class="bg-blue-900 flex justify-center py-3 mt-3 text-white">
-            ${Footer.print()}
-        </footer>
-       </div>
-    
     `;
   },
 };
