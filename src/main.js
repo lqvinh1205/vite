@@ -1,39 +1,29 @@
 import Navigo from "navigo";
-import AboutPage from "./pages/about";
+import AboutPage from "./pages/client/about";
 import DetailPage from "./components/details";
 import HomePage from "./pages/home";
-import Footer from "./components/footer";
-import Header from "./components/header";
-import AdminNewList from "./components/admin/new-list";
 import AdminDashboard from "./pages/admin/dashboard";
-import Navbar from "./components/admin/navbar";
-import SignInPage from "./components/signin";
-import SignUpPage from "./components/sinup";
-import NewAdd from "./components/admin/new-add";
-import NewEdit from "./components/admin/new-edit";
+import NewsPage from "./pages/admin/news";
+import NewAddPage from "./pages/admin/news/add";
+import NewEditPage from "./pages/admin/news/edit";
+import SigninPage from "./pages/client/signin";
+import SignupPage from "./pages/client/signup";
 
 const router = new Navigo("/", { linksSelector: "a" });
 
 const print = (content) => {
-  document.querySelector("#header").innerHTML = Header.render();
   document.querySelector("#app").innerHTML = content;
-  document.querySelector("#footer").innerHTML = Footer.render();
 };
-const printAdmin = (content) => {
-  document.getElementById("container").classList.remove("max-w-5xl");
-  document.querySelector("#header").innerHTML = Navbar.render();
-  document.querySelector("#app").innerHTML = content;
-  document.querySelector("#footer").innerHTML = Footer.render();
-};
+
 router.on({
   "/": () => {
     print(HomePage.render());
   },
   "/signin": () => {
-    print(SignInPage.render());
+    print(SigninPage.render());
   },
   "/signup": () => {
-    print(SignUpPage.render());
+    print(SignupPage.render());
   },
   "/about": () => {
     print(AboutPage.render());
@@ -46,17 +36,17 @@ router.on({
     print(DetailPage.render(id));
   },
   "/admin/dashboard": () => {
-    printAdmin(AdminDashboard.render());
+    print(AdminDashboard.render());
   },
   "/admin/news": () => {
-    printAdmin(AdminNewList.render());
+    print(NewsPage.render());
   },
   "/admin/news/add": () => {
-    printAdmin(NewAdd.render());
+    print(NewAddPage.render());
   },
   "/admin/news/:id/edit": ({ data }) => {
     const { id } = data;
-    printAdmin(NewEdit.render(id));
+    print(NewEditPage.render(id));
   },
 });
 router.resolve();
